@@ -8,18 +8,44 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { name, email, password, role, department, employeeId } = req.body;
+
+    // Check required fields
+    if (!name || !email || !password || !role) {
+      return res.status(400).json({ message: "Please provide all required fields" });
+    }
+
+    // Employee must have employeeId
+    if (role === "employee" && !employeeId) {
+      return res.status(400).json({ message: "Employee ID is required for employees" });
+    }
+
+    // Check for existing user
+    const existingUser = await User.findOne({
+      $or: [{ email }, { employeeId: employeeId || null }],
+    });
     if (existingUser) return res.status(400).json({ message: "User already exists" });
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword, role });
+
+    // Create user
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      department,
+      employeeId: role === "employee" ? employeeId : undefined,
+    });
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 export const login = async (req, res) => {
   try {

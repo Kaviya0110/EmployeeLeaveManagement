@@ -2,9 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
-const AdminDashboard: React.FC = () => <h2>Admin Dashboard</h2>;
-const EmployeeDashboard: React.FC = () => <h2>Employee Dashboard</h2>;
+import AdminDashboard from "./pages/AdminDashboard";
+import EmployeeDashboard from "./pages/EmployeeDashboard";
 
 const App: React.FC = () => {
   return (
