@@ -5,19 +5,19 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import leaveRoutes from "./routes/leaveRoutes.js"; 
-import path from "path"
+// import path from "path"
 
 dotenv.config();
 const app = express();
 
 app.use(express.json());
 
-// Serve static frontend
-app.use(express.static(path.join(__dirname, "frontend/build")));
+// // Serve static frontend
+// app.use(express.static(path.join(__dirname, "frontend/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
+// });
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
