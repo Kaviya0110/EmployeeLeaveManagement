@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/admin", // backend URL
+  baseURL: "https://employeeleavemanagement.onrender.com/api/admin", 
   withCredentials: true,
 });
 

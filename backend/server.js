@@ -10,6 +10,8 @@ import leaveRoutes from "./routes/leaveRoutes.js";
 dotenv.config();
 const app = express();
 
+app.get('/', (req, res) => res.send('Employee Leave Management API running'));
+
 app.use(express.json());
 
 // // Serve static frontend
